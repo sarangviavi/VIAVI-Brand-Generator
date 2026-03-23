@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VIAVI Brand UI Generator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root {
+  --purple:    #491e88;
+  --purple2:   #3a1670;
+  --blue:      #00a9e0;
+  --teal:      #00b0a2;
+  --midblu:    #0070b8;
+  --green:     #2cb34a;
+  --red:       #d50032;
+  --yellow:    #ffb500;
+  --dark:      #333333;
+  --gray:      #999999;
+  --lgray:     #c6c6c6;
+  --lgray2:    #dbdbdb;
+  --lgray3:    #f2f2f2;
+  --white:     #ffffff;
+  --grad-pri:  linear-gradient(135deg, #491e88, #00a9e0);
+  --grad-sec:  linear-gradient(135deg, #00b0a2, #0070b8);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { height: 100%; }
+
+body {
+  font-family: 'Barlow', 'Noto Sans', sans-serif;
+  background: var(--lgray3);
+  color: var(--dark);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── NAV ── */
+nav {
+  background: var(--purple);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 56px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+nav::after {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: -30px;
+  width: 180px;
+  height: 120px;
+  background: linear-gradient(135deg, #491e88, #00a9e0);
+  transform: skewY(-10deg);
+  opacity: 0.4;
+  pointer-events: none;
+}
+.nav-left { display: flex; align-items: center; gap: 16px; z-index: 1; }
+.nav-logo {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+}
+.nav-sep { width: 1px; height: 24px; background: rgba(255,255,255,0.3); }
+.nav-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.85);
+  letter-spacing: 0.5px;
+}
+.nav-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: var(--white);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 1;
+}
+.nav-guidelines {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.3px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-guidelines i { color: var(--blue); font-size: 11px; }
+
+/* ── SETTINGS BAR ── */
+.settings-bar {
+  background: var(--white);
+  border-bottom: 1px solid var(--lgray2);
+  padding: 8px 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.settings-bar label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gray);
+  white-space: nowrap;
+}
+.settings-bar input {
+  flex: 1;
+  max-width: 520px;
+  font-family: 'Barlow', monospace;
+  font-size: 12px;
+  padding: 6px 12px;
+  border: 1px solid var(--lgray2);
+  border-radius: 4px;
+  color: var(--dark);
+  background: var(--lgray3);
+  outline: none;
+}
+.settings-bar input:focus { border-color: var(--purple); }
+.key-note {
+  font-size: 11px;
+  color: var(--red);
+  font-weight: 500;
+}
+
+/* ── MAIN LAYOUT ── */
+.main {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* ── LEFT PANEL ── */
+.left-panel {
+  background: var(--white);
+  border-right: 1px solid var(--lgray2);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.left-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid var(--lgray3);
+}
+.left-header h2 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.left-header p {
+  font-size: 12px;
+  color: var(--gray);
+  line-height: 1.5;
+}
+
+.prompt-area {
+  padding: 16px 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.prompt-area label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gray);
+}
+
+textarea {
+  width: 100%;
+  height: 160px;
+  min-height: 100px;
+  max-height: 300px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: var(--dark);
+  border: 1px solid var(--lgray2);
+  border-radius: 6px;
+  padding: 12px;
+  resize: vertical;
+  outline: none;
+  line-height: 1.6;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+textarea:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(73,30,136,0.08);
+}
+textarea::placeholder { color: var(--lgray); }
+.prompt-hint {
+  font-size: 11px;
+  color: var(--lgray);
+  text-align: right;
+  margin-top: -6px;
+}
+
+.examples-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--gray);
+  margin-top: 4px;
+}
+.examples {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.example-chip {
+  background: var(--lgray3);
+  border: 1px solid var(--lgray2);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--dark);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.example-chip:hover {
+  border-color: var(--purple);
+  background: #f5f0fc;
+  color: var(--purple);
+}
+.example-chip i { font-size: 12px; color: var(--purple); width: 14px; }
+
+/* ── GENERATE BUTTON ── */
+.generate-wrap {
+  padding: 16px 24px;
+  border-top: 1px solid var(--lgray3);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.btn-generate {
+  width: 100%;
+  background: var(--purple);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  padding: 14px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.btn-generate:hover:not(:disabled) { background: var(--purple2); }
+.btn-generate:disabled { background: var(--lgray); cursor: not-allowed; }
+
+.btn-clear {
+  width: 100%;
+  background: transparent;
+  color: var(--gray);
+  border: 1px solid var(--lgray2);
+  border-radius: 4px;
+  padding: 9px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-clear:hover { border-color: var(--gray); color: var(--dark); }
+
+/* ── RIGHT PANEL ── */
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--lgray3);
+}
+
+.tab-bar {
+  display: flex;
+  background: var(--white);
+  border-bottom: 1px solid var(--lgray2);
+  padding: 0 24px;
+  gap: 0;
+  flex-shrink: 0;
+}
+.tab-btn {
+  padding: 14px 20px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--gray);
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-bottom: -1px;
+}
+.tab-btn.active { color: var(--purple); border-bottom-color: var(--purple); }
+.tab-btn:hover:not(.active) { color: var(--dark); }
+
+.tab-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-action {
+  font-family: 'Barlow', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-copy {
+  background: transparent;
+  color: var(--purple);
+  border: 1px solid var(--purple);
+}
+.btn-copy:hover { background: #f5f0fc; }
+.btn-open {
+  background: var(--purple);
+  color: var(--white);
+  border: 1px solid var(--purple);
+}
+.btn-open:hover { background: var(--purple2); }
+
+.panel-content {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+.panel-content.hidden { display: none; }
+
+/* Preview iframe */
+#preview-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: var(--white);
+}
+
+/* Empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 16px;
+  color: var(--gray);
+}
+.empty-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--lgray3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: var(--purple);
+}
+.empty-state h3 { font-size: 16px; font-weight: 700; color: var(--dark); }
+.empty-state p { font-size: 13px; color: var(--gray); text-align: center; max-width: 280px; line-height: 1.6; }
+
+/* Code panel */
+#code-panel {
+  height: 100%;
+  overflow-y: auto;
+  padding: 24px;
+}
+pre {
+  background: #1a0a2e;
+  color: #e8e0f0;
+  padding: 20px;
+  border-radius: 8px;
+  font-size: 12px;
+  line-height: 1.7;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-family: 'Consolas', 'Monaco', monospace;
+  min-height: 200px;
+}
+
+/* Loading state */
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.92);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 10;
+}
+.loading-overlay.hidden { display: none; }
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--lgray2);
+  border-top-color: var(--purple);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-overlay p {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--purple);
+  letter-spacing: 0.5px;
+}
+.loading-sub { font-size: 11px !important; color: var(--gray) !important; font-weight: 400 !important; }
+
+/* Toast */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: var(--dark);
+  color: var(--white);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  transform: translateY(60px);
+  opacity: 0;
+  transition: all 0.3s;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { background: var(--green); }
+.toast.error { background: var(--red); }
+
+/* Status bar */
+.status-bar {
+  background: var(--white);
+  border-top: 1px solid var(--lgray2);
+  padding: 6px 24px;
+  font-size: 11px;
+  color: var(--gray);
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-shrink: 0;
+}
+.status-credit {
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--lgray);
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--lgray);
+  flex-shrink: 0;
+}
+.status-dot.active { background: var(--green); animation: pulse 2s infinite; }
+.status-dot.loading { background: var(--yellow); animation: pulse 0.8s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <span class="nav-logo">VIAVI</span>
+    <div class="nav-sep"></div>
+    <span class="nav-title">Brand UI Generator</span>
+  </div>
+  <div class="nav-right">
+    <span class="nav-badge">Prototype</span>
+  </div>
+</nav>
+
+<!-- SETTINGS BAR -->
+<div class="settings-bar">
+  <label><i class="fa fa-key" style="margin-right:6px;color:var(--purple)"></i>API Key</label>
+  <input type="password" id="api-key" placeholder="sk-ant-api03-..." autocomplete="off"/>
+  <span class="key-note"><i class="fa fa-triangle-exclamation"></i> Do not commit to a public repo</span>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="left-header">
+      <h2>What would you like to build?</h2>
+      <p>Describe any UI component and Claude will generate pixel-perfect, brand-compliant HTML — ready to copy into your project.</p>
+    </div>
+
+    <div class="prompt-area">
+      <label>Describe your component</label>
+      <textarea id="prompt" placeholder="e.g. A hero section for a 5G network product launch with a bold headline, a short description, and two call-to-action buttons — one primary and one outline style"></textarea>
+      <div class="prompt-hint"><i class="fa fa-keyboard" style="margin-right:4px"></i>Ctrl + Enter to generate</div>
+
+      <div class="examples-label">Quick Examples</div>
+      <div class="examples">
+        <button class="example-chip" onclick="setPrompt(this)">
+          <i class="fa fa-gauge-high"></i>
+          A KPI dashboard card showing network performance metrics with pass/fail status indicators
+        </button>
+        <button class="example-chip" onclick="setPrompt(this)">
+          <i class="fa fa-right-to-bracket"></i>
+          A login screen with email and password fields, a VIAVI-branded header, and a sign-in button
+        </button>
+        <button class="example-chip" onclick="setPrompt(this)">
+          <i class="fa fa-tower-broadcast"></i>
+          A hero section for a 5G network assurance product with headline, description, and two CTAs
+        </button>
+        <button class="example-chip" onclick="setPrompt(this)">
+          <i class="fa fa-bell"></i>
+          An alert/notification card for network fault management with severity levels (critical, warning, info)
+        </button>
+        <button class="example-chip" onclick="setPrompt(this)">
+          <i class="fa fa-table-columns"></i>
+          A feature comparison table for three VIAVI product tiers with checkmarks and highlights
+        </button>
+        <button class="example-chip" onclick="setPrompt(this)">
+          <i class="fa fa-chart-line"></i>
+          A product landing page section showing 3 key statistics with icons and animated counters
+        </button>
+        <button class="example-chip" onclick="setPrompt(this)">
+          <i class="fa fa-id-card"></i>
+          A team member / contact card with name, role, photo placeholder, and social links
+        </button>
+      </div>
+    </div>
+
+    <div class="generate-wrap">
+      <button class="btn-generate" id="gen-btn" onclick="generate()">
+        <i class="fa fa-wand-magic-sparkles"></i>
+        Generate Component
+      </button>
+      <button class="btn-clear" onclick="clearAll()">
+        <i class="fa fa-rotate-left"></i> Clear
+      </button>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+    <div class="tab-bar">
+      <button class="tab-btn active" id="tab-preview" onclick="switchTab('preview')">
+        <i class="fa fa-eye" style="margin-right:6px"></i>Preview
+      </button>
+      <button class="tab-btn" id="tab-code" onclick="switchTab('code')">
+        <i class="fa fa-code" style="margin-right:6px"></i>Code
+      </button>
+      <div class="tab-actions">
+        <button class="btn-action btn-copy" onclick="copyCode()" id="copy-btn" style="display:none">
+          <i class="fa fa-copy"></i> Copy HTML
+        </button>
+        <button class="btn-action btn-open" onclick="openInNewTab()" id="open-btn" style="display:none">
+          <i class="fa fa-arrow-up-right-from-square"></i> Open Full Screen
+        </button>
+      </div>
+    </div>
+
+    <!-- Preview Panel -->
+    <div class="panel-content" id="preview-panel">
+      <div class="empty-state" id="empty-state">
+        <div class="empty-icon"><i class="fa fa-paintbrush"></i></div>
+        <h3>Your component will appear here</h3>
+        <p>Type a description on the left and click <strong>Generate</strong>. Claude will create a fully styled, brand-compliant component following the official VIAVI guidelines.</p>
+      </div>
+      <iframe id="preview-frame" style="display:none"></iframe>
+      <div class="loading-overlay hidden" id="loading">
+        <div class="spinner"></div>
+        <p>Generating component…</p>
+        <p class="loading-sub">Applying VIAVI brand guidelines</p>
+      </div>
+    </div>
+
+    <!-- Code Panel -->
+    <div class="panel-content hidden" id="code-panel-wrap">
+      <div id="code-panel">
+        <pre id="code-output"><!-- Generated code will appear here --></pre>
+      </div>
+    </div>
+
+    <!-- Status Bar -->
+    <div class="status-bar">
+      <div class="status-dot" id="status-dot"></div>
+      <span id="status-text">Ready — describe a component and click Generate</span>
+      <span class="status-credit">Sarang Modi</span>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ── SYSTEM PROMPT: Full VIAVI Brand Guidelines ──────────────────────────────
+const SYSTEM_PROMPT = `You are a VIAVI Solutions brand UI generator. Your sole job is to output complete, self-contained, production-ready HTML/CSS components that strictly follow VIAVI brand guidelines. Output ONLY valid HTML — no markdown, no explanations, no code fences. Start directly with <!DOCTYPE html> for full pages or a <div> for components.
+
+═══════════════════════════════════════════
+VIAVI BRAND GUIDELINES — FULL REFERENCE
+═══════════════════════════════════════════
+
+── COLOR PALETTE ──────────────────────────
+PRIMARY COLORS (use first):
+  Logo Purple (#491e88) — DOMINANT. Use for: logo, CTAs, headers, nav bars, selected states, buttons, headlines, accents. Never overwhelming.
+  Light Blue (#00a9e0) — use for gradients with purple, highlights, links
+  Teal (#00b0a2) — secondary gradient
+  Medium Blue (#0070b8) — secondary gradient
+  White (#ffffff) — primary backgrounds, text on dark
+
+PRIMARY GRADIENTS:
+  Purple → Light Blue: linear-gradient(135deg, #491e88, #00a9e0)  [dominant gradient]
+  Teal → Medium Blue: linear-gradient(135deg, #00b0a2, #0070b8)  [secondary gradient]
+
+BACKGROUNDS & PANELS (monochromatic — use grays):
+  #f2f2f2 — page/section backgrounds
+  #dbdbdb — panel borders, dividers
+  #c6c6c6 — subtle borders
+  #999999 — secondary text, labels
+  #333333 — primary dark text
+
+UI RESERVED COLORS (strict purpose only):
+  Green #2cb34a — ONLY: Pass / Success / Connected / Start / OK
+  Red #d50032   — ONLY: Fail / Error / Disconnected / Stop
+  Yellow #ffb500 — ONLY: Warning / Marginal / Alert
+
+SUPPORT COLORS (diagrams/infographics only, not general use):
+  Dark Blue #0040a6, Green #2cb34a, Chartreuse #9ac534, Yellow #ffb500
+  Orange #e87722, Red #d50032, Darker Blue #1a2b58
+
+IMPORTANT COLOR RULES:
+  - Backgrounds and panels MUST be monochromatic (white/grays) — this lets colored elements stand out
+  - Purple is dominant but should never feel overwhelming — use it purposefully
+  - Never use color alone to communicate — pair with icons or text
+  - Ensure WCAG AA contrast (4.5:1 minimum for text)
+  - Do NOT use gradients on text unless it's a large display heading
+
+── TYPOGRAPHY ────────────────────────────
+Primary font: 'Barlow', sans-serif (always import from Google Fonts)
+Web fallback: 'Noto Sans', sans-serif
+
+Import: <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+HIERARCHY:
+  Intro/Eyebrow: Medium (500), 200px letter-spacing, ALL CAPS, small size (11-12px)
+  H1: Bold (700-800)
+  H2: Light (300) or Regular (400)
+  H3/H4: Semi-Bold (600) or Bold (700)
+  Body: Light (300) or Regular (400)
+  Labels/Tags: Semi-Bold (600), ALL CAPS, letter-spacing
+
+CAPITALIZATION:
+  Title Case — headlines and titles
+  Sentence case — subheads and body copy
+  ALL CAPS — buttons, tags, eyebrow text, small call-outs only
+
+RULES:
+  - Minimum font size: 12px (never below)
+  - NO italics for headlines
+  - NO drop shadows on text
+  - NO text at an angle or on a curve
+  - NO mixing sizes within a headline line
+  - NO bold in the middle of sentence text
+  - NO color in the middle of sentence text
+  - Avoid widows and orphans in text blocks
+
+── CTA BUTTONS ──────────────────────────
+  Primary: #491e88 purple bg, #ffffff text, ALL CAPS, font-weight:700, letter-spacing:1.5px
+  Alternate: white bg with #491e88 border and text (outline style)
+  Text on dark backgrounds: white outline button
+
+  Specs: border-radius 4-6px, no drop shadows, no box shadows
+  Hover: darken purple to ~#3a1670
+  Text is ALWAYS ALL CAPS with letter-spacing
+  Minimum width: 160px
+
+  NEVER: drop shadows, colors outside palette, changed border-radius shape
+
+── ICONOGRAPHY ────────────────────────────
+  Use Font Awesome 6 Solid icons (CDN: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css)
+  Style: bold, solid forms — fa-solid / fas class
+  Mix sharp and round elements, simplest possible representation
+  Incorporate square elements when possible
+  ALWAYS pair icons with a text label or tooltip
+  Color icons with brand colors (purple for VIAVI products, gray for neutral)
+  Do NOT download or create icons that already exist in Font Awesome
+
+── SHAPES & DECORATIVE ELEMENTS ──────────
+  Criss-cross angles: parallelogram shapes using CSS transform: skewY(-10deg)
+  - Purple→LightBlue gradient goes on TOP layer
+  - Teal→MediumBlue gradient goes on BOTTOM layer
+  - NEVER use teal/medium-blue gradient alone
+  - Max 3 gradient angle shapes per composition
+  - Angles add energy; never obscure main content
+  - Use overflow:hidden on parent to clip angles cleanly
+
+  Accent squares: solid purple square, 50% size of image, offset 0.2in
+  Line accents: solid primary color line, max 5px thick
+  Textures: white-on-white geometric patterns for backgrounds (subtle)
+
+── IMAGERY GUIDANCE ──────────────────────
+  Natural, authentic lighting — no over-styled/staged shots
+  Real-world environments — not generic stock photos
+  Diverse subjects
+  Color-correct images for consistency
+  Use placeholder divs with brand gradient backgrounds when no image
+
+── COMPONENT DESIGN RULES ───────────────
+  Cards: white (#fff) background, 1px #dbdbdb border, 8-12px border-radius, subtle box-shadow
+  Section backgrounds: #f2f2f2 or white, no colored backgrounds unless purposeful
+  Navigation: purple background, white text
+  Headers/hero: purple or purple gradient, white text with Barlow Bold H1
+  Tables: white bg, #f2f2f2 alternating rows, #491e88 header row
+  Forms: white bg, 1px #c6c6c6 border, #491e88 focus border, Barlow font
+  Status indicators: use reserved colors (green/red/yellow) with icon + text
+  Spacing: use multiples of 8px (8, 16, 24, 32, 48, 64)
+  Dividers: 1px #dbdbdb
+
+── 5 DESIGN PRINCIPLES (apply to every component) ──
+  1. SIMPLE: Obvious hierarchy, minimal cognitive load, effortless to understand
+  2. RELIABLE: Clear visual feedback for all states, no ambiguity about pass/fail/warning
+  3. POLISHED: Professional typography, consistent spacing, high contrast, refined alignment
+  4. ENABLING: Labels on all interactive elements, tooltips, helpful empty states, clear CTAs
+  5. ADAPTABLE: Responsive layouts, accessible contrast, works at multiple screen sizes
+
+── OUTPUT FORMAT ────────────────────────
+  Output ONLY valid HTML, starting with <!DOCTYPE html>
+  Include ALL CSS inline in a <style> block in the <head>
+  Import Barlow from Google Fonts
+  Import Font Awesome from CDN
+  No external dependencies beyond Google Fonts and Font Awesome
+  Make it visually complete and realistic — use placeholder content that feels real
+  Include hover states for all interactive elements
+  The output must render perfectly in a browser iframe with no additional files`;
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let generatedHTML = '';
+let currentTab = 'preview';
+
+// ── HELPERS ──────────────────────────────────────────────────────────────────
+function setStatus(text, state) {
+  document.getElementById('status-text').textContent = text;
+  const dot = document.getElementById('status-dot');
+  dot.className = 'status-dot' + (state ? ' ' + state : '');
+}
+
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.className = 'toast' + (type ? ' ' + type : '');
+  t.innerHTML = (type === 'success' ? '<i class="fa fa-check"></i> ' : type === 'error' ? '<i class="fa fa-xmark"></i> ' : '') + msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function setPrompt(btn) {
+  document.getElementById('prompt').value = btn.textContent.trim();
+  document.getElementById('prompt').focus();
+}
+
+function clearAll() {
+  document.getElementById('prompt').value = '';
+  generatedHTML = '';
+  document.getElementById('preview-frame').style.display = 'none';
+  document.getElementById('empty-state').style.display = 'flex';
+  document.getElementById('code-output').textContent = '<!-- Generated code will appear here -->';
+  document.getElementById('copy-btn').style.display = 'none';
+  document.getElementById('open-btn').style.display = 'none';
+  setStatus('Ready — enter a prompt and click Generate', '');
+}
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.getElementById('tab-preview').classList.toggle('active', tab === 'preview');
+  document.getElementById('tab-code').classList.toggle('active', tab === 'code');
+  document.getElementById('preview-panel').classList.toggle('hidden', tab !== 'preview');
+  document.getElementById('code-panel-wrap').classList.toggle('hidden', tab !== 'code');
+}
+
+function copyCode() {
+  if (!generatedHTML) return;
+  navigator.clipboard.writeText(generatedHTML)
+    .then(() => showToast('HTML copied to clipboard', 'success'))
+    .catch(() => {
+      const ta = document.createElement('textarea');
+      ta.value = generatedHTML;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('HTML copied to clipboard', 'success');
+    });
+}
+
+function openInNewTab() {
+  if (!generatedHTML) return;
+  const blob = new Blob([generatedHTML], { type: 'text/html' });
+  const url = URL.createObjectURL(blob);
+  window.open(url, '_blank');
+}
+
+function renderPreview(html) {
+  const frame = document.getElementById('preview-frame');
+  document.getElementById('empty-state').style.display = 'none';
+  frame.style.display = 'block';
+  frame.srcdoc = html;
+}
+
+// ── GENERATE ─────────────────────────────────────────────────────────────────
+async function generate() {
+  const apiKey = document.getElementById('api-key').value.trim();
+  const prompt = document.getElementById('prompt').value.trim();
+
+  if (!apiKey) {
+    showToast('Please enter your Claude API key above', 'error');
+    document.getElementById('api-key').focus();
+    return;
+  }
+  if (!prompt) {
+    showToast('Please describe the component you want to generate', 'error');
+    document.getElementById('prompt').focus();
+    return;
+  }
+
+  // Loading state
+  document.getElementById('gen-btn').disabled = true;
+  document.getElementById('loading').classList.remove('hidden');
+  document.getElementById('copy-btn').style.display = 'none';
+  document.getElementById('open-btn').style.display = 'none';
+  setStatus('Generating…', 'loading');
+
+  generatedHTML = '';
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': apiKey,
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 8000,
+        system: SYSTEM_PROMPT,
+        messages: [{ role: 'user', content: `Before generating, carefully review all VIAVI brand guidelines above — colours, typography, spacing, buttons, and the 5 design principles. Then create a fully brand-compliant HTML component: ${prompt}` }],
+        stream: true
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err?.error?.message || `API error ${response.status}`);
+    }
+
+    // Stream the response
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6).trim();
+        if (data === '[DONE]') continue;
+        try {
+          const evt = JSON.parse(data);
+          if (evt.type === 'content_block_delta' && evt.delta?.type === 'text_delta') {
+            generatedHTML += evt.delta.text;
+          }
+        } catch {}
+      }
+    }
+
+    // Render & show
+    renderPreview(generatedHTML);
+    document.getElementById('code-output').textContent = generatedHTML;
+    document.getElementById('copy-btn').style.display = '';
+    document.getElementById('open-btn').style.display = '';
+    setStatus(`Component generated — ${generatedHTML.length.toLocaleString()} characters`, 'active');
+    showToast('Component generated successfully', 'success');
+
+  } catch (err) {
+    console.error(err);
+    setStatus('Error: ' + err.message, '');
+    showToast(err.message || 'Generation failed', 'error');
+  } finally {
+    document.getElementById('gen-btn').disabled = false;
+    document.getElementById('loading').classList.add('hidden');
+  }
+}
+
+// Enter key in textarea
+document.getElementById('prompt').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) generate();
+});
+</script>
+
+</body>
+</html>
